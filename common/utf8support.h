@@ -162,6 +162,8 @@ public:
 		}
 
 		UErrorCode error = U_ZERO_ERROR;
+		// in older version not requied
+		// icu_70::UnicodeString ustr(begin, end - begin, pCnv, error);
 		UnicodeString ustr(begin, end - begin, pCnv, error);
 		if (! U_SUCCESS(error)) {
 			return std::vector<MYWCHAR_T>();
@@ -172,6 +174,7 @@ public:
 		buf.reserve(count);
 
 		StringCharacterIterator it(ustr);
+		// icu_70::StringCharacterIterator it(ustr);
 		for (UChar uc = it.first32(); uc != it.DONE; uc = it.next32()) {
 			if (uc != 0xfeff/* bom */) {
 				buf.push_back(uc);
@@ -195,6 +198,7 @@ public:
 
 		UErrorCode error = U_ZERO_ERROR;
 		UnicodeString ustr(begin, end - begin, pCnv, error);
+		// icu_70::UnicodeString ustr(begin, end - begin, pCnv, error);
 		if (! U_SUCCESS(error)) {
 			(*pResult).clear();
 			return;
@@ -205,6 +209,7 @@ public:
 
 		(*pResult).clear();
 		StringCharacterIterator it(ustr);
+		// icu_70::StringCharacterIterator it(ustr);
 		for (UChar uc = it.first32(); uc != it.DONE; uc = it.next32()) {
 			if (uc != 0xfeff/* bom */) {
 				(*pResult).push_back(uc);
@@ -213,7 +218,8 @@ public:
 	}
 	std:: string encode(const MYWCHAR_T *pStr, size_t strLength)
 	{
-		UnicodeString ustr(strLength * 2, (UChar32)' ', 0); // reserve (strLength * 2) * 16bits
+		UnicodeString ustr(strLength * 2, (UChar32)' ', 0);
+		// icu_70::UnicodeString ustr(strLength * 2, (UChar32)' ', 0); // reserve (strLength * 2) * 16bits
 
 		for (size_t i = 0; i < strLength; ++i) {
 			ustr.append((UChar32)*(pStr + i));
